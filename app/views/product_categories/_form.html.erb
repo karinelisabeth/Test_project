@@ -1,0 +1,38 @@
+<%= form_for @product_category, :html => { :class => "form-horizontal product_category" } do |f| %>
+
+    <% if @product_category.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@product_category.errors.count, "error") %> prohibited this product_category from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @product_category.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :cat_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :cat_name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product_category[:cat_name]) %>
+  </div>
+
+    <%= f.fields_for :products do |ff| %>
+        <div>
+          <%= ff.label :product_name %>
+          <%= ff.text_field :product_name %>
+        </div>
+    <% end %>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            product_categories_path, :class => 'btn btn-default' %>
+
+<% end %>
