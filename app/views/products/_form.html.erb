@@ -1,3 +1,4 @@
+<% puts "in _form" %>
 <%= form_for @product, :html => { :class => "form-horizontal product" } do |f| %>
 
     <% if @product.errors.any? %>
@@ -21,16 +22,11 @@
       <%= error_span(@product[:product_name]) %>
     </div>
 
-
-    <%= f.fields_for :product_category do |ff| %>
-
-        <div class="form-group">
-          <%= ff.label :cat_name %>
-          <%= ff.collection_select :cat_name, ProductCategory.all, :id, :cat_name, {}, class: "form-control" %>
-        </div>
-
-
-    <% end %>
+    <div class="form-group"> 
+      <%= f.label :cat_name %> 
+      <%= f.collection_select(:product_category_id, ProductCategory.all, :id, :cat_name, {prompt: true}, {id: 'combobox',class: 'form-control'}) %> 
+       <!--http://jqueryui.com/autocomplete/#combobox-->
+    </div>
 
 
 
