@@ -1,10 +1,12 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    # @products = Product.all
+    @products = Product.where(:organisation_id => current_user.organisation_id)  #show only products belonging to users org
   end
 
   # GET /products/1
@@ -26,6 +28,7 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
+    @product.organisation_id = current_user.organisation_id
 
     respond_to do |format|
       if @product.save
