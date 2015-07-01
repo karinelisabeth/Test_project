@@ -1,0 +1,9 @@
+<%= @organisation.inspect %>
+
+<ul>
+  <%- @organisation.products.each do |product| %>
+      <li><%= link_to product.product_name, [@organisation, product] %></li>
+  <% end %>
+</ul>
+
+<%= link_to "Invite", new_organisation_membership_path(@organisation) %>

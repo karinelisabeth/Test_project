@@ -6,6 +6,14 @@ Rails.application.routes.draw do
 
   root to: "products#index"
 
+  resources :memberships
+
+  resources :organisations do
+    resources :products
+    resources :memberships
+  end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
