@@ -6,12 +6,12 @@ Rails.application.routes.draw do
 
   root to: "products#index"
 
-  resources :memberships
-
   resources :organisations do
     resources :products
     resources :memberships
   end
+
+  get 'accept_invitation/:invitation_code', to: "memberships#activate", as: "accept_invitation"
 
 
   # The priority is based upon order of creation: first created -> highest priority.
