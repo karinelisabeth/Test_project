@@ -5,7 +5,6 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    # @products = Product.all
     @products = Product.where(:organisation_id => current_user.organisation_id)  #show only products belonging to users org
   end
 
@@ -73,8 +72,11 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:product_name, :product_category_id,
-                                      :product_category_attributes => [:id, :cat_name]
-      )
+      params.require(:product).permit(*policy(@product || Product).permitted_attributes)
+      #params.require(:product).permit(:product_name, :product_category_id,
+      #                                :product_category_attributes => [:id, :cat_name]
+      #)
     end
 end
+
+
