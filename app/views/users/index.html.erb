@@ -1,0 +1,29 @@
+<div class="page-header">
+<h1>Listing Users</h1>
+  </div>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th> <%= User.human_attribute_name(:email) %></th>
+    <th> <%= User.human_attribute_name(:organisation_id) %></th>
+    <th> <%= User.human_attribute_name(:role) %></th>
+    <th colspan="2"> Actions </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.organisations.first.name %></td>
+        <%= render user %>
+        <!-- <td><#%= user.role %></td> -->
+        <td><%= link_to 'Show', organisation_user_path(@organisation, user) %></td>
+        <td><%= link_to 'Edit', edit_organisation_user_path(@organisation, user) %></td>
+        <!-- <td><#%= link_to 'Destroy', [@organisation, user], method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
