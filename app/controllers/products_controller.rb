@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.where(:organisation_id => current_user.organisation_id)  #show only products belonging to users org
+    @products = policy_scope(Product.where(:organisation_id => current_user.organisation_id))  #show only products belonging to users org & fields scoped to user role
   end
 
   # GET /products/1
@@ -71,6 +71,7 @@ class ProductsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+  #TO_ASK how to add product_category_attributes to permitted attributes below?
     def product_params
       params.require(:product).permit(*policy(@product || Product).permitted_attributes)
       #params.require(:product).permit(:product_name, :product_category_id,
