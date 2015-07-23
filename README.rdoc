@@ -1,5 +1,9 @@
 == README
 
+Notes:
+- hardcoded 3 roles: account_owner: 0, warehouse: 1, admin: 2
+- only account_owner can change product_name
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

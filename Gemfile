@@ -42,6 +42,7 @@ gem "less-rails"
 gem "twitter-bootstrap-rails"
 
 gem "pundit"
+gem 'active_decorator'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -52,5 +53,15 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem "better_errors"
+  gem 'meta_request'
+  gem 'pry'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
+  gem 'pry-byebug'
+  gem 'quiet_assets'
+  gem 'pry-rails'
+
 end
 
