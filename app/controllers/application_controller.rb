@@ -11,9 +11,7 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:alert] = "Access denied."
-    #TO_ASK  get too many redirect errors if a user that is not authorised to view /products (index) logs in
-    redirect_to (root_path)
-    # redirect_to (request.referrer || root_path)
+    redirect_to (request.referrer || root_path)
   end
 
 end
