@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  #TO_ASK
+  get 'users/index'
+
+  get 'users/edit'
+
+  get 'users/update'
+
+  get 'users/destroy'
+
   devise_for :users
   resources :product_categories
 
@@ -9,6 +18,7 @@ Rails.application.routes.draw do
   resources :organisations do
     resources :products
     resources :memberships
+    resources :users
   end
 
   get 'accept_invitation/:invitation_code', to: "memberships#activate", as: "accept_invitation"
