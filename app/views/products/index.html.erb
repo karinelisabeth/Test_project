@@ -19,7 +19,7 @@
       <tr>
         <td><%= link_to product.id, product_path(product) %></td>
         <td><%= product.product_name %></td>
-        <td><%=l product.created_at %></td>
+        <td><%= product.created_at %></td>
         <td><%= product.product_category.try(:cat_name) %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
