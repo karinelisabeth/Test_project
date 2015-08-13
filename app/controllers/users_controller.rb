@@ -47,8 +47,8 @@ class UsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   #TO_ASK how to add product_category_attributes to permitted attributes below?
   def user_params
-    params.require(:user).permit(:email, :organisation_id, :role)
-    #params.require(:user).permit(*policy(@user || Users).permitted_attributes)
+    params.require(:user).permit(:email, :organisation_id,
+                                 :roles_user_attributes =>:role_id)
   end
 
 end

@@ -46,7 +46,7 @@ gem 'active_decorator'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  # gem 'byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
@@ -59,7 +59,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
-  gem 'pry-byebug'
+  #gem 'pry-byebug'
   gem 'quiet_assets'
   gem 'pry-rails'
 

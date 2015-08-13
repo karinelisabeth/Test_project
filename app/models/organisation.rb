@@ -5,6 +5,7 @@ class Organisation < ActiveRecord::Base
   #has_many :users
   has_many :users, through: :memberships
   has_many :products
+  has_many :roles
 
   def to_s
     name

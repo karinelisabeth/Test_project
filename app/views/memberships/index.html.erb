@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h1>Listing Members of <%= @organisation.name %> </h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th> <%= Membership.human_attribute_name(:email) %></th>
+    <th> <%= Membership.human_attribute_name(:organisation_id) %></th>
+    <th> <%= Membership.human_attribute_name(:role) %></th>
+    <th colspan="2"> Actions </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @memberships.each do |membership| %>
+      <tr>
+        <td><%= membership.user.email %></td>
+        <td><%= membership.organisation.name %></td>
+        <td><%= membership.role %></td>
+        <td><%= link_to 'Show', organisation_membership_path(@organisation, membership) %></td>
+        <td><%= link_to 'Edit', edit_organisation_membership_path(@organisation, membership) %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

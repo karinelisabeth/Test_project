@@ -1,2 +1,12 @@
-<%= link_to 'Edit', edit_organisation_membership_path(@organisation, @membership) %> |
-<%= link_to 'Back', @organisation %>
+<div class="page-header">
+  <h1>Member details</h1>
+</div>
+
+<ul>
+  <li><%= @membership.user.email %></li>
+  <li><%= @membership.organisation.name %></li>
+  <li><%= @membership.role %></li>
+</ul>
+
+<%= link_to 'Edit', edit_organisation_membership_path(@organisation, @membership), :class => 'btn btn-default' %>
+<%= link_to 'Back', organisation_memberships_path(@organisation), :class => 'btn btn-default' %>

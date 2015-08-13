@@ -22,6 +22,12 @@
       <%= error_span(@product[:product_name]) %>
     </div>
 
+    <div class="form-group">
+      <%= f.label :SKU, :class => 'control-label' %>
+      <%= f.text_field :SKU, :class => 'form-control' %>
+      <%= error_span(@product[:SKU]) %>
+    </div>
+
     <div class="form-group"> 
       <%= f.label :cat_name %> 
       <%= f.collection_select(:product_category_id, ProductCategory.all, :id, :cat_name, {prompt: true}, {id: 'combobox',class: 'form-control', :disabled=> !@product.editable_fields.include?(:product_category_id)})%> 

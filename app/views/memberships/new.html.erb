@@ -1,5 +1,29 @@
 <h1>New Membership</h1>
 
-<%= render 'form' %>
+<%= form_for([@organisation, @membership]) do |f| %>
+    <% if @membership.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
+
+          <ul>
+            <% @membership.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+    <div class="form-group">
+      <%= f.label :email, :class => 'control-label' %>
+      <%= f.email_field :email, :class => 'form-control' %>
+      <%= error_span(@membership[:email]) %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+
 
 <%= link_to 'Back', organisation_memberships_path(@organisation) %>

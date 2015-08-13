@@ -7,19 +7,22 @@ class User < ActiveRecord::Base
   #http://stackoverflow.com/questions/16771503/how-to-join-mutli-role-multi-organisation-tables-in-rails
   has_many :memberships
   has_many :organisations, through: :memberships
+  has_one :roles_user
+  has_one :role, through: :roles_user
   #belongs_to :organisation
-
   accepts_nested_attributes_for :organisations
+  accepts_nested_attributes_for :role
 
 
-  enum role: {account_owner: 0, warehouse: 1, admin: 2}
+  #enum role: {account_owner: 0, warehouse: 1, admin: 2}
 
   #TO_ASK
-  after_initialize :set_default_role, :if => :new_record?
+  # after_initialize :set_default_role, :if => :new_record?
 
-  def set_default_role
-    self.role ||= :account_owner
-  end
+  #TO_UPDATE
+  # def set_default_role
+  #   self.role ||= :account_owner
+  # end
 
 
 end

@@ -30,6 +30,7 @@ class ProductsController < ApplicationController
     @product.organisation_id = current_user.organisation_id
 
     respond_to do |format|
+      authorize @product
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
@@ -73,10 +74,9 @@ class ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
   #TO_ASK how to add product_category_attributes to permitted attributes below?
     def product_params
+      #params.require(:product).permit(:product_name, :product_category_id, :sku,
+      #                               :product_category_attributes => [:id, :cat_name])
       params.require(:product).permit(*policy(@product || Product).permitted_attributes)
-      #params.require(:product).permit(:product_name, :product_category_id,
-      #                                :product_category_attributes => [:id, :cat_name]
-      #)
     end
 end
 

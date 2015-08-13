@@ -28,4 +28,12 @@ class Membership < ActiveRecord::Base
     !!activated_at
   end
 
+  def available_roles
+    ["member","moderator"] + organisation_roles
+  end
+
+  def organisation_roles
+    organisation.roles.pluck(:name)
+  end
+
 end

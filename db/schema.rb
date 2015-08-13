@@ -11,24 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723180133) do
+ActiveRecord::Schema.define(version: 20150813184001) do
 
   create_table "memberships", force: :cascade do |t|
     t.string   "invitation_code", limit: 255
     t.string   "email",           limit: 255
-    t.datetime "created_at",                  null: false
+    t.datetime "created_at",                                     null: false
     t.datetime "activated_at"
     t.datetime "deactivated_at"
     t.integer  "organisation_id", limit: 4
     t.integer  "user_id",         limit: 4
-    t.datetime "updated_at",                  null: false
+    t.datetime "updated_at",                                     null: false
+    t.string   "role",            limit: 255, default: "member"
   end
 
   create_table "organisations", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "role",       limit: 4
   end
 
   create_table "product_categories", force: :cascade do |t|
@@ -37,20 +37,38 @@ ActiveRecord::Schema.define(version: 20150723180133) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "product_permissions", force: :cascade do |t|
+    t.integer  "role_id",    limit: 4
+    t.boolean  "c",          limit: 1, default: true
+    t.boolean  "r",          limit: 1, default: true
+    t.boolean  "u",          limit: 1, default: true
+    t.boolean  "d",          limit: 1, default: true
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string   "product_name",        limit: 255
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "product_category_id", limit: 4
     t.integer  "organisation_id",     limit: 4
+    t.string   "SKU",                 limit: 255
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "role",            limit: 255
-    t.integer  "organisation_id", limit: 4
-    t.integer  "user_id",         limit: 4
+    t.string   "name",            limit: 255
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "organisation_id", limit: 4
+  end
+
+  create_table "roles_users", force: :cascade do |t|
+    t.integer  "role_id",         limit: 4
+    t.integer  "user_id",         limit: 4
+    t.integer  "organisation_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,7 +85,6 @@ ActiveRecord::Schema.define(version: 20150723180133) do
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.integer  "organisation_id",        limit: 4
-    t.integer  "role",                   limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
