@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  role_id: 
+  entity: MyString
+  c: false
+  r: false
+  u: false
+  d: false
+
+two:
+  role_id: 
+  entity: MyString
+  c: false
+  r: false
+  u: false
+  d: false

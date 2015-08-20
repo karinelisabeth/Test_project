@@ -24,7 +24,7 @@
 
     <div class="form-group">
       <%= f.label :SKU, :class => 'control-label' %>
-      <%= f.text_field :SKU, :class => 'form-control' %>
+      <%= f.text_field :SKU, :class => 'form-control', :disabled=> !@product.editable_fields.include?(:SKU) %>
       <%= error_span(@product[:SKU]) %>
     </div>
 

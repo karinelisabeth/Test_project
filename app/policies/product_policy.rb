@@ -4,13 +4,28 @@ class ProductPolicy < ApplicationPolicy
   def initialize(user, product)
     @user = user
     @product = product
-    @role_name = user.memberships.first.role
-    @role = Role.find_by_name(@role_name)
-    @permission = ProductPermission.find_by_role_id(@role)
+    @role = user.memberships.where(organisation: @product.organisation).first.role
+    @permission = @role.entity_permissions.where(entity: "Product").first
+  end
+
+  def index?
+    @permission.r
   end
 
   def create?
-    @permission.c?
+    @permission.c
+  end
+
+  def readible_fields
+    if index?       #no point in checking individual attributes if role is denied view permission on the whole table
+      if @role_name == 'member'
+        [:product_name,  :product_category_id]
+      else
+        [:product_name,  :product_category_id, :SKU]
+      end
+    else
+      puts "you don't have permission to view products"
+    end
   end
 
   # class Scope < Scope
@@ -27,11 +42,11 @@ class ProductPolicy < ApplicationPolicy
 
 
   def permitted_attributes
-    #if user.account_owner?
+    if @role_name == 'member'
+      [:product_name,  :product_category_id]
+    else
       [:product_name,  :product_category_id, :SKU]
-    #else
-     # [:product_category_id]
-    #end
+    end
   end
 
 end

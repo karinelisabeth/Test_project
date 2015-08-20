@@ -2,9 +2,11 @@ class Membership < ActiveRecord::Base
   # http://stackoverflow.com/questions/16771503/how-to-join-mutli-role-multi-organisation-tables-in-rails
   belongs_to :user
   belongs_to :organisation
+  belongs_to :role
 
   before_create do
     self.invitation_code = SecureRandom.base64(12)
+    self.role = self.organisation.roles.find_by_name("member")
   end
 
   def invitation_expired_at
@@ -26,14 +28,6 @@ class Membership < ActiveRecord::Base
 
   def activated?
     !!activated_at
-  end
-
-  def available_roles
-    ["member","moderator"] + organisation_roles
-  end
-
-  def organisation_roles
-    organisation.roles.pluck(:name)
   end
 
 end

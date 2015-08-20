@@ -11,18 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813184001) do
+ActiveRecord::Schema.define(version: 20150814153435) do
+
+  create_table "entity_permissions", force: :cascade do |t|
+    t.integer  "role_id",    limit: 4
+    t.string   "entity",     limit: 255
+    t.boolean  "c",          limit: 1
+    t.boolean  "r",          limit: 1
+    t.boolean  "u",          limit: 1
+    t.boolean  "d",          limit: 1
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "entity_permissions", ["role_id"], name: "index_entity_permissions_on_role_id", using: :btree
 
   create_table "memberships", force: :cascade do |t|
     t.string   "invitation_code", limit: 255
     t.string   "email",           limit: 255
-    t.datetime "created_at",                                     null: false
+    t.datetime "created_at",                  null: false
     t.datetime "activated_at"
     t.datetime "deactivated_at"
     t.integer  "organisation_id", limit: 4
     t.integer  "user_id",         limit: 4
-    t.datetime "updated_at",                                     null: false
-    t.string   "role",            limit: 255, default: "member"
+    t.datetime "updated_at",                  null: false
+    t.integer  "role_id",         limit: 4
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -35,16 +48,6 @@ ActiveRecord::Schema.define(version: 20150813184001) do
     t.string   "cat_name",   limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-  end
-
-  create_table "product_permissions", force: :cascade do |t|
-    t.integer  "role_id",    limit: 4
-    t.boolean  "c",          limit: 1, default: true
-    t.boolean  "r",          limit: 1, default: true
-    t.boolean  "u",          limit: 1, default: true
-    t.boolean  "d",          limit: 1, default: true
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
   end
 
   create_table "products", force: :cascade do |t|
@@ -61,14 +64,6 @@ ActiveRecord::Schema.define(version: 20150813184001) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "organisation_id", limit: 4
-  end
-
-  create_table "roles_users", force: :cascade do |t|
-    t.integer  "role_id",         limit: 4
-    t.integer  "user_id",         limit: 4
-    t.integer  "organisation_id", limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -90,4 +85,5 @@ ActiveRecord::Schema.define(version: 20150813184001) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "entity_permissions", "roles"
 end
